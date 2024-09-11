@@ -17,28 +17,7 @@ enum StepperID {
 
 namespace Platform {
 
-static constexpr bool AdjustableBuzzer = true;
-static constexpr bool LedPowerOnLevel = 1;
-
 namespace Pins {
-
-namespace LeftArrows {
-static constexpr gpio_num_t Up = GPIO_NUM_47;
-static constexpr gpio_num_t Down = GPIO_NUM_7;
-static constexpr gpio_num_t Left = GPIO_NUM_1;
-static constexpr gpio_num_t Right = GPIO_NUM_6;
-static constexpr gpio_num_t Enter = GPIO_NUM_5;
-} // namespace LeftArrows
-
-namespace RightArrows {
-static constexpr gpio_num_t Up = GPIO_NUM_8;
-static constexpr gpio_num_t Down = GPIO_NUM_14;
-static constexpr gpio_num_t Left = GPIO_NUM_10;
-static constexpr gpio_num_t Right = GPIO_NUM_4;
-static constexpr gpio_num_t Enter = GPIO_NUM_9;
-} // namespace RightArrows
-
-
 
 namespace Stepper1 {
 static constexpr gpio_num_t Step = GPIO_NUM_38;

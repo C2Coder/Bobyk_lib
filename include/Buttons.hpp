@@ -15,7 +15,7 @@
 extern QueueHandle_t eventQueue;
 
 class Buttons {
-    friend class Logic;
+    friend class Bobyk;
 
 public:
     using CallbackList = eventpp::CallbackList<void(std::bitset<MaxID> currentState, std::bitset<MaxID> changedBtns)>;

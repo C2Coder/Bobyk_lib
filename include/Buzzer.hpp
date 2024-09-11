@@ -8,7 +8,7 @@
 #include <mutex>
 
 class Buzzer {
-    friend class Logic;
+    friend class Bobyk;
 
 private:
     Buzzer();

@@ -16,7 +16,7 @@ enum States {
 using Stavy = States;
 
 class StatusBar {
-    friend class Logic;
+    friend class Bobyk;
 
 private:
     const char* m_tag = "StatusBar";

@@ -26,7 +26,7 @@ struct Rectangle {
 typedef Rectangle Obdelnik;
 
 class Display {
-    friend class Logic;
+    friend class Bobyk;
 
 private:
     SmartLed m_displayLeds;

@@ -1,4 +1,4 @@
-#include "Logic.hpp"
+#include "Bobyk.hpp"
 #include "Platform.hpp"
 
 #include <bitset>
@@ -10,15 +10,15 @@
 #include <functional>
 #include <thread>
 
-Logic::Logic() {
+Bobyk::Bobyk() {
 }
 
-Logic& IRAM_ATTR Logic::singleton() {
-    static Logic DRAM_ATTR instance;
+Bobyk& IRAM_ATTR Bobyk::singleton() {
+    static Bobyk DRAM_ATTR instance;
     return instance;
 }
 
-void Logic::init() {
+void Bobyk::init() {
     gpio_config_t configData = {
         .pin_bit_mask = 1ULL << Platform::Pins::LedPower,
         .mode = GPIO_MODE_OUTPUT,
@@ -30,55 +30,55 @@ void Logic::init() {
     m_buttons.init();
 }
 
-void Logic::turnOnLeds() {
+void Bobyk::turnOnLeds() {
     gpio_set_level(Platform::Pins::LedPower, Platform::LedPowerOnLevel);
 }
 
-void Logic::turnOffLeds() {
+void Bobyk::turnOffLeds() {
     gpio_set_level(Platform::Pins::LedPower, !Platform::LedPowerOnLevel);
 }
 
-StatusBar& Logic::statusBar() {
+StatusBar& Bobyk::statusBar() {
     return m_statusBar;
 }
 
-Display& Logic::display() {
+Display& Bobyk::display() {
     return m_display;
 }
 
-Buttons& Logic::buttons() {
+Buttons& Bobyk::buttons() {
     return m_buttons;
 }
 
-Buzzer& Logic::buzzer() {
+Buzzer& Bobyk::buzzer() {
     return m_buzzer;
 }
 
-Nvs& Logic::nvs() {
-    static Nvs instance("LogicLib");
+Nvs& Bobyk::nvs() {
+    static Nvs instance("BobykLib");
     return instance;
 }
 
-Logic& logic = Logic::singleton();
-Display& display = logic.display();
-StatusBar& statusBar = logic.statusBar();
-Buttons& buttons = logic.buttons();
-Buzzer& buzzer = logic.buzzer();
+Bobyk& bobyk = Bobyk::singleton();
+Display& display = bobyk.display();
+StatusBar& statusBar = bobyk.statusBar();
+Buttons& buttons = bobyk.buttons();
+Buzzer& buzzer = bobyk.buzzer();
 
-extern void logicMain();
+extern void bobykMain();
 
 extern "C" {
 [[gnu::weak]] void app_main() {
-    logic.init();
+    bobyk.init();
 
     // The SmartLeds Interrupt handler must be registered on different core than
     // the WiFi Interrupts are, otherwise SmartLeds can't feed RMT fast enough.
     // We can't feasibly change SmartLeds's core because it is initialized
     // via global constructors, but WiFi core is set to 1 via sdkconfig.* files.
     // CONFIG_ESP32_WIFI_TASK_PINNED_TO_CORE_1
-    logic.turnOnLeds();
+    bobyk.turnOnLeds();
 
-    logicMain();
+    bobykMain();
 
     while (true)
         vTaskDelay(1000 / portTICK_PERIOD_MS);
